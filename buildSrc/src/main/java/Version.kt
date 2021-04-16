@@ -39,13 +39,14 @@ object Version {
     const val SWIPE_REFRESH_LAYOUT_VERSION = "1.2.0-alpha01"
 
     // Architecture MVVM & LiveData
-    const val LIFECYCLE_VERSION = "2.2.0"
+    const val LIFECYCLE_VERSION = "2.3.1"
 
     // Navigation Components
     const val NAVIGATION_VERSION = "2.3.0"
 
     // Retrofit
     const val RETROFIT_VERSION = "2.8.1"
+    const val OKHTTP_LOGGING_VERSION = "4.9.1"
 
     //Gson
     const val GSON_VERSION = "2.8.4"
@@ -53,6 +54,7 @@ object Version {
     // Dagger
     const val DAGGER_VERSION = "2.28"
     const val DAGGER_HILT_VERSION = "2.33-beta"
+    const val DAGGER_HILT_ANDRIODX = "1.0.0-alpha03"
 
     // Coroutines
     const val COROUTINES_VERSION = "1.3.7"

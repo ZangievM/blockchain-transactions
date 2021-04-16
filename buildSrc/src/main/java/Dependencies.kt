@@ -40,11 +40,6 @@ object Deps {
     const val LIFECYCLE_PROCESS =
         "androidx.lifecycle:lifecycle-process:${Version.LIFECYCLE_VERSION}"
 
-    // optional - ReactiveStreams support for LiveData
-    const val LIFECYCLE_REACTIVE_STREAMS =
-        "androidx.lifecycle:lifecycle-reactivestreams:${Version.LIFECYCLE_VERSION}"
-
-
     // Navigation Components
     const val NAVIGATION_FRAGMENT =
         "androidx.navigation:navigation-fragment-ktx:${Version.NAVIGATION_VERSION}"
@@ -65,7 +60,13 @@ object Deps {
     // Dagger Hilt
     const val DAGGER_HILT_ANDROID = "com.google.dagger:hilt-android:${Version.DAGGER_HILT_VERSION}"
     const val DAGGER_HILT_COMPILER =
-        "com.google.dagger:hilt-compiler:${Version.DAGGER_HILT_VERSION}"
+        "com.google.dagger:hilt-android-compiler:${Version.DAGGER_HILT_VERSION}"
+
+    // Dagger Hilt AndroidX
+    const val DAGGER_HILT_VIEWMODEL =
+        "androidx.hilt:hilt-lifecycle-viewmodel:${Version.DAGGER_HILT_ANDRIODX}"
+    const val DAGGER_HILT_ANDROIDX_HILT_COMPILER =
+        "androidx.hilt:hilt-compiler:${Version.DAGGER_HILT_ANDRIODX}"
 
     // Coroutines
     const val COROUTINES_CORE =
@@ -77,6 +78,7 @@ object Deps {
     const val RETROFIT = "com.squareup.retrofit2:retrofit:${Version.RETROFIT_VERSION}"
     const val RETROFIT_GSON_CONVERTER =
         "com.squareup.retrofit2:converter-gson:${Version.RETROFIT_VERSION}"
+    const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:${Version.OKHTTP_LOGGING_VERSION}"
 
     // Gson
     const val GSON = "com.google.code.gson:gson:${Version.GSON_VERSION}"
