@@ -67,6 +67,8 @@ object Deps {
         "androidx.hilt:hilt-lifecycle-viewmodel:${Version.DAGGER_HILT_ANDRIODX}"
     const val DAGGER_HILT_ANDROIDX_HILT_COMPILER =
         "androidx.hilt:hilt-compiler:${Version.DAGGER_HILT_ANDRIODX}"
+    const val JAVA_X_INJECT = "javax.inject:javax.inject:${Version.JAVA_X_INJECT_VERSION}"
+    const val JAVA_X_ANNOTATION = "javax.annotation:jsr250-api:${Version.JAVA_X_ANNOTATION_VERSION}"
 
     // Coroutines
     const val COROUTINES_CORE =

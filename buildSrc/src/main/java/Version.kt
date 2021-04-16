@@ -16,6 +16,8 @@ object AndroidVersion {
 
 object Version {
 
+    const val JAVA_X_INJECT_VERSION = "1"
+    const val JAVA_X_ANNOTATION_VERSION = "1.0"
     const val CORE_KTX_VERSION = "1.3.1"
     const val FRAGMENT_KTX_VERSION = "1.2.5"
 
