@@ -1,4 +1,4 @@
-package com.zm.profile
+package com.zm.blockchain_transactions
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

@@ -1,4 +1,4 @@
-package com.zm.profile
+package com.zm.blockchain_transactions.profile
 
 import android.content.Context
 import android.os.Bundle
@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.zm.blockchain_transactions.di.CoreDependencies
-import com.zm.profile.di.DaggerProfileComponent
+import com.zm.blockchain_transactions.profile.di.DaggerProfileComponent
+import com.zm.profile.databinding.ProfileFragmentBinding
 import dagger.hilt.android.EntryPointAccessors
 import javax.inject.Inject
+
 
 class ProfileFragment : Fragment() {
 
@@ -23,16 +25,15 @@ class ProfileFragment : Fragment() {
     private val viewModel: ProfileViewModel by lazy {
         ViewModelProvider(this, factory).get(ProfileViewModel::class.java)
     }
-//    private lateinit var binding: FragmentProfileBinding
+    private lateinit var binding: ProfileFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        TODO()
-//        binding =
-//            FragmentProfileBinding.inflater.inflate(R.layout.profile_fragment, container, false)
-//        return binding.root
+        binding =
+            ProfileFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onAttach(context: Context) {

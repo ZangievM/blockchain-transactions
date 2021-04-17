@@ -1,4 +1,4 @@
-package com.zm.profile
+package com.zm.blockchain_transactions.profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
