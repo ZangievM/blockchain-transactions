@@ -11,18 +11,18 @@ import retrofit2.http.POST
 
 interface KartaApi {
 
-    @POST("/accounts/auth")
+    @POST("api/accounts/auth")
     suspend fun login(@Body loginBody: LoginBody): LoginResponse
 
-    @POST("/accounts/sessions/end")
+    @POST("api/accounts/sessions/end")
     suspend fun logout(@Body logoutBody: LogoutBody = LogoutBody("bcd4f3f6-a302-45ec-a17c-69f09c72eb0d")): Any
 
 
-    @POST("/accounts/sessions/refresh")
+    @POST("api/accounts/sessions/refresh")
     suspend fun refresh(): RefreshResponse
 
 
-    @GET("/accounts/current")
+    @GET("api/accounts/current")
     suspend fun getProfile(): ProfileResponse
 
 

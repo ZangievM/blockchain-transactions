@@ -1,9 +1,10 @@
 package com.zm.domain.util
 
-sealed class Resource
+sealed class Resource<T> {
 
-class Success<T>(val data: T? = null): Resource()
+    class Success<T>(val data: T? = null) : Resource<T>()
 
-class Loading<T>(data: T? = null): Resource()
+    class Loading<T>() : Resource<T>()
 
-class Failure(val error: Throwable? = null): Resource()
+    class Failure<T>(val error: Throwable? = null) : Resource<T>()
+}
