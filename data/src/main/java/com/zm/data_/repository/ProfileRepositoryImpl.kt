@@ -1,5 +1,6 @@
 package com.zm.data_.repository
 
+import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import com.zm.data_.api.KartaApi
 import com.zm.data_.mappers.toProfile
@@ -9,7 +10,7 @@ import javax.inject.Inject
 
 class ProfileRepositoryImpl @Inject constructor(
     private val api: KartaApi,
-    private val storage: EncryptedSharedPreferences
+    private val storage: SharedPreferences
 ) : ProfileRepository {
 
 

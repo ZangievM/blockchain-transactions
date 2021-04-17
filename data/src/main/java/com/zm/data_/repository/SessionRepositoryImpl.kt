@@ -1,12 +1,13 @@
 package com.zm.data_.repository
 
+import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import com.zm.domain.model.SessionData
 import com.zm.domain.repository.SessionRepository
 import javax.inject.Inject
 
 class SessionRepositoryImpl @Inject constructor(
-    private val storage: EncryptedSharedPreferences
+    private val storage: SharedPreferences
 ) : SessionRepository {
     override suspend fun saveSession(session: SessionData) {
         storage.edit()

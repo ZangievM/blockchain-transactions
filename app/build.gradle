@@ -62,6 +62,10 @@ dependencies {
     kapt Deps.DAGGER_HILT_COMPILER
     implementation Deps.DAGGER_HILT_VIEWMODEL
     kapt Deps.DAGGER_HILT_ANDROIDX_HILT_COMPILER
+    implementation Deps.ENCRYPTED_SHARED_PREF
+
+    api project(":domain")
+    api project(":data")
 
     testImplementation TestDeps.junit
     androidTestImplementation TestDeps.androidx_test_ext_junit
