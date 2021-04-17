@@ -86,6 +86,10 @@ class TransactionsFragment : Fragment() {
                 }
             }
         }
+
+        viewModel.transactionsTotalSize.observe(viewLifecycleOwner) {
+            binding.totalTextView.text = getString(R.string.transactions_size, it)
+        }
     }
 
     private fun setupViews() {
@@ -99,11 +103,11 @@ class TransactionsFragment : Fragment() {
         }
         binding.clearButton.setOnClickListener {
             adapter.clearItems()
+            viewModel.clear()
         }
 
         binding.transactionsRV.layoutManager = LinearLayoutManager(requireContext())
         binding.transactionsRV.adapter = adapter
-        binding.transactionsRV.itemAnimator = DefaultItemAnimator()
         binding.transactionsRV.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
     }
 

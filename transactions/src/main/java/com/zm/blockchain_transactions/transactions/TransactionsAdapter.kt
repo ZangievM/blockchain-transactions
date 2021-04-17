@@ -27,7 +27,7 @@ class TransactionsAdapter : RecyclerView.Adapter<TransactionsAdapter.ViewHolder>
     @Synchronized
     fun addTransaction(transaction: Transaction) {
         items.add(transaction)
-        notifyDataSetChanged()
+        notifyItemInserted(items.size - 1)
     }
 
     @Synchronized
@@ -41,7 +41,7 @@ class TransactionsAdapter : RecyclerView.Adapter<TransactionsAdapter.ViewHolder>
         RecyclerView.ViewHolder(binding.root) {
         fun bind(transaction: Transaction) {
             val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US)
-            binding.dateTextView.text = dateFormat.format(transaction.x.time*1000)
+            binding.dateTextView.text = dateFormat.format(transaction.x.time * 1000)
             binding.sizeTextView.text = transaction.x.size.toString()
         }
     }
