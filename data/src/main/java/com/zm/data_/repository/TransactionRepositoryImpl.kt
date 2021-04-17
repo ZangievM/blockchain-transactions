@@ -1,61 +1,73 @@
 package com.zm.data_.repository
 
+import com.google.gson.Gson
+import com.zm.data_.mappers.toTransaction
+import com.zm.data_.model.api.TransactionDataModel
+import com.zm.domain.model.Transaction
 import com.zm.domain.repository.TransactionsRepository
 import com.zm.domain.util.TransactionCommands
 import com.zm.domain.util.TransactionResource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import okhttp3.*
 import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 class TransactionRepositoryImpl @Inject constructor(
     private val client: OkHttpClient,
-    private val transactionsUrl: String
+    private val transactionsUrl: String,
+    private val gson: Gson
 ) : TransactionsRepository {
+
+    private var eventsListener: TransactionsRepository.Listener? = null
     private val listener = object : WebSocketListener() {
         override fun onOpen(webSocket: WebSocket, response: Response) {
             super.onOpen(webSocket, response)
-            eventsFlow.value = TransactionResource.Connected()
             socket?.send(TransactionCommands.SUBSCRIBE.value)
+            eventsListener?.onNewEvent(TransactionResource.Connected())
         }
 
         override fun onMessage(webSocket: WebSocket, text: String) {
             super.onMessage(webSocket, text)
-            eventsFlow.value = TransactionResource.NewData(text)
+            val t = parse(text)
+            eventsListener?.onNewEvent(TransactionResource.NewData(t))
         }
 
         override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
             super.onClosed(webSocket, code, reason)
-            eventsFlow.value = TransactionResource.Disconnected()
+            eventsListener?.onNewEvent(TransactionResource.Disconnected())
+            disconnect()
         }
 
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
             super.onFailure(webSocket, t, response)
-            eventsFlow.value = TransactionResource.Failure(t)
+            eventsListener?.onNewEvent(TransactionResource.Failure(t))
+            disconnect()
         }
+    }
+
+    private fun parse(text: String): Transaction {
+        val tData = gson.fromJson(text, TransactionDataModel::class.java)
+        return tData.toTransaction()
     }
 
     @Volatile
     private var socket: WebSocket? = null
 
-    private var eventsFlow =
-        MutableStateFlow<TransactionResource<out String>>(TransactionResource.Disconnected())
-
     @Synchronized
-    override fun subscribeToTransactions(): Flow<TransactionResource<out String>> {
+    override fun subscribeToTransactions(listener: TransactionsRepository.Listener) {
         if (socket == null) connect()
-        return eventsFlow
+        this.eventsListener = listener
     }
 
     @Synchronized
-    override fun unsubscribeFromTransactions() {
+    override fun unsubscribeFromTransactions(listener: TransactionsRepository.Listener) {
+        eventsListener?.onNewEvent(TransactionResource.Disconnected())
+        eventsListener = null
         disconnect()
     }
 
     @Synchronized
-    override fun connect() {
+    private fun connect() {
         val request = Request.Builder()
             .url(transactionsUrl)
             .build()
@@ -63,7 +75,7 @@ class TransactionRepositoryImpl @Inject constructor(
     }
 
     @Synchronized
-    override fun disconnect() {
+    private fun disconnect() {
         socket?.cancel()
         socket = null
     }

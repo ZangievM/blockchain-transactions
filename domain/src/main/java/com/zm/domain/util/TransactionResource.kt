@@ -2,7 +2,7 @@ package com.zm.domain.util
 
 sealed class TransactionResource<T> {
     class Connected: TransactionResource<Nothing>()
-    class NewData<T>(data: T): TransactionResource<T>()
+    class NewData<T>(val data: T): TransactionResource<T>()
     class Disconnected(): TransactionResource<Nothing>()
     class Failure(val e: Throwable?): TransactionResource<Nothing>()
 }

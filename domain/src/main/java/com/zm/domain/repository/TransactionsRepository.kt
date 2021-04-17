@@ -1,11 +1,13 @@
 package com.zm.domain.repository
 
+import com.zm.domain.model.Transaction
 import com.zm.domain.util.TransactionResource
-import kotlinx.coroutines.flow.Flow
 
 interface TransactionsRepository {
-    fun subscribeToTransactions(): Flow<TransactionResource<out String>>
-    fun unsubscribeFromTransactions()
-    fun connect()
-    fun disconnect()
+    fun subscribeToTransactions(listener: Listener)
+    fun unsubscribeFromTransactions(listener: Listener)
+
+    interface Listener {
+        fun onNewEvent(event: TransactionResource<out Transaction>)
+    }
 }

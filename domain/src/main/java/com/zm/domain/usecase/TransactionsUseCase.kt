@@ -8,16 +8,10 @@ import javax.inject.Inject
 class TransactionsUseCase @Inject constructor(
     private val transactionsRepository: TransactionsRepository
 ) {
-    fun subscribeToTransactions(): Flow<TransactionResource<out String>> {
-        return transactionsRepository.subscribeToTransactions()
+    fun subscribeToTransactions(listener: TransactionsRepository.Listener) {
+        return transactionsRepository.subscribeToTransactions(listener)
     }
-    fun unsubscribeFromTransactions() {
-        transactionsRepository.unsubscribeFromTransactions()
-    }
-    fun connect() {
-        transactionsRepository.connect()
-    }
-    fun disconnect() {
-        transactionsRepository.disconnect()
+    fun unsubscribeFromTransactions(listener: TransactionsRepository.Listener) {
+        transactionsRepository.unsubscribeFromTransactions(listener)
     }
 }
