@@ -2,8 +2,14 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_home.xml"
-    app:startDestination="@id/nav_profile"
+    app:startDestination="@id/nav_transactions"
     >
+    <include-dynamic
+        android:id="@+id/nav_transactions"
+        app:moduleName="transactions"
+        app:graphResName="nav_transactions"
+        app:graphPackage="${applicationId}.transactions" />
+
     <include-dynamic
         android:id="@+id/nav_profile"
         app:moduleName="profile"

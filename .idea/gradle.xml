@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/profile" />
+            <option value="$PROJECT_DIR$/transactions" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
