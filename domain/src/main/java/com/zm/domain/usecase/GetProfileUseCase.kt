@@ -12,7 +12,6 @@ class GetProfileUseCase @Inject constructor(
     fun execute(): Flow<Profile> {
         return flow {
             val profile = profileRepository.getProfile()
-            profileRepository.saveProfileInfo(profile)
             emit(profile)
         }
     }
