@@ -12,16 +12,22 @@ import com.zm.data_.api.MainRefreshApi
 import com.zm.data_.repository.AuthRepositoryImpl
 import com.zm.data_.repository.ProfileRepositoryImpl
 import com.zm.data_.repository.SessionRepositoryImpl
+import com.zm.data_.repository.TransactionRepositoryImpl
 import com.zm.domain.repository.AuthRepository
 import com.zm.domain.repository.ProfileRepository
 import com.zm.domain.repository.SessionRepository
+import com.zm.domain.repository.TransactionsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.android.scopes.FragmentScoped
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -38,6 +44,12 @@ import javax.inject.Singleton
     ]
 )
 object AppModule {
+
+    @Singleton
+    @Provides
+    fun provideTransactionsUrl(): String {
+        return BuildConfig.TRANSACTIONS_URL
+    }
 
     @Singleton
     @Provides
@@ -149,4 +161,9 @@ interface DataModule {
     @Binds
     @Singleton
     fun bindProfileRepository(repository: ProfileRepositoryImpl): ProfileRepository
+
+    @ExperimentalCoroutinesApi
+    @Binds
+    @Singleton
+    fun bindTransactionRepository(repository: TransactionRepositoryImpl): TransactionsRepository
 }
