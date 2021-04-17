@@ -11,4 +11,6 @@
     <string name="login_failed">"Login failed"</string>
     <string name="test_email">hello@karta.com</string>
     <string name="test_password">12345678</string>
+    <string name="menu_transactions">Transactions</string>
+    <string name="menu_profile">Profile</string>
 </resources>

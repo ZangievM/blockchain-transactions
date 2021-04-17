@@ -44,10 +44,6 @@ object Deps {
     const val NAVIGATION_FRAGMENT =
         "androidx.navigation:navigation-fragment-ktx:${Version.NAVIGATION_VERSION}"
     const val NAVIGATION_UI = "androidx.navigation:navigation-ui-ktx:${Version.NAVIGATION_VERSION}"
-    const val NAVIGATION_RUNTIME =
-        "androidx.navigation:navigation-runtime-ktx:${Version.NAVIGATION_VERSION}"
-
-    // Dynamic Feature Module Support
     const val NAVIGATION_DYNAMIC =
         "androidx.navigation:navigation-dynamic-features-fragment:${Version.NAVIGATION_VERSION}"
 

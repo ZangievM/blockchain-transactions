@@ -45,32 +45,33 @@ android {
 
 dependencies {
 
+    // core
     implementation Deps.KOTLIN
     implementation Deps.ANDROIDX_CORE_KTX
     implementation Deps.APPCOMPAT
     implementation Deps.MATERIAL
     implementation Deps.CONSTRAINT_LAYOUT
 
+    // ViewModel + lifecycle
     implementation Deps.LIFECYCLE_VIEWMODEL_KTX
     implementation Deps.LIFECYCLE_LIVEDATA_KTX
-
+    // network
     implementation Deps.RETROFIT
     implementation Deps.RETROFIT_GSON_CONVERTER
     implementation Deps.OKHTTP_LOGGING_INTERCEPTOR
-    
+    // hilt
     implementation Deps.DAGGER_HILT_ANDROID
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.annotation:annotation:1.1.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0'
     kapt Deps.DAGGER_HILT_COMPILER
     implementation Deps.DAGGER_HILT_VIEWMODEL
     kapt Deps.DAGGER_HILT_ANDROIDX_HILT_COMPILER
+    // encrypted shared prefs
     implementation Deps.ENCRYPTED_SHARED_PREF
 
+    // navigation
+    implementation Deps.NAVIGATION_FRAGMENT
+    implementation Deps.NAVIGATION_DYNAMIC
+    implementation Deps.NAVIGATION_UI
+    // domain and data layers
     api project(":domain")
     api project(":data")
 
