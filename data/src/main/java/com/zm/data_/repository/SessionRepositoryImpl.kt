@@ -9,6 +9,7 @@ import javax.inject.Inject
 class SessionRepositoryImpl @Inject constructor(
     private val storage: SharedPreferences
 ) : SessionRepository {
+    @Synchronized
     override suspend fun saveSession(session: SessionData) {
         storage.edit()
             .putString("token", session.token)
@@ -16,12 +17,14 @@ class SessionRepositoryImpl @Inject constructor(
             .apply()
     }
 
+    @Synchronized
     override suspend fun getSession(): SessionData {
         val token = storage.getString("token", "")!!
         val expiration = storage.getLong("expiration", 0L)
         return SessionData(token = token, expiration = expiration)
     }
 
+    @Synchronized
     override suspend fun clearSession() {
         storage.edit()
             .remove("token")
@@ -29,6 +32,7 @@ class SessionRepositoryImpl @Inject constructor(
             .apply()
     }
 
+    @Synchronized
     override suspend fun isLoggedIn(): Boolean {
         if (storage.getString("token", "").isNullOrBlank()) return false
         return true

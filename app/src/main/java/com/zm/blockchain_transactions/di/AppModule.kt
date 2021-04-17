@@ -6,7 +6,9 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.google.gson.Gson
 import com.zm.blockchain_transactions.BuildConfig
-import com.zm.data_.api.KartaApi
+import com.zm.blockchain_transactions.util.MainInterceptor
+import com.zm.data_.api.MainApi
+import com.zm.data_.api.MainRefreshApi
 import com.zm.data_.repository.AuthRepositoryImpl
 import com.zm.data_.repository.ProfileRepositoryImpl
 import com.zm.data_.repository.SessionRepositoryImpl
@@ -20,6 +22,7 @@ import dagger.Reusable
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
@@ -29,9 +32,11 @@ import javax.inject.Singleton
 
 
 @InstallIn(SingletonComponent::class)
-@Module(includes = [
-    DataModule::class
-])
+@Module(
+    includes = [
+        DataModule::class
+    ]
+)
 object AppModule {
 
     @Singleton
@@ -71,10 +76,22 @@ object AppModule {
 
     @Singleton
     @Provides
+    fun provideMainInterceptor(
+        refreshApi: MainRefreshApi,
+        sessionRepository: SessionRepository
+    ): Interceptor {
+
+        return MainInterceptor(sessionRepository, refreshApi)
+    }
+
+    @Singleton
+    @Provides
     fun provideOkHttpClient(
+        mainInterceptor: Interceptor,
         loggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder().apply {
+            addInterceptor(mainInterceptor)
             if (BuildConfig.DEBUG) addInterceptor(loggingInterceptor)
         }.build()
     }
@@ -95,8 +112,26 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideApi(retrofit: Retrofit): KartaApi {
-        return retrofit.create(KartaApi::class.java)
+    fun provideApi(retrofit: Retrofit): MainApi {
+        return retrofit.create(MainApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideRefreshApi(
+        loggingInterceptor: HttpLoggingInterceptor,
+        converterFactory: Converter.Factory,
+    ): MainRefreshApi {
+        val client = OkHttpClient.Builder().apply {
+            if (BuildConfig.DEBUG) addInterceptor(loggingInterceptor)
+        }.build()
+        val retrofit = Retrofit
+            .Builder()
+            .client(client)
+            .baseUrl(BuildConfig.BASE_URL)
+            .addConverterFactory(converterFactory)
+            .build()
+        return retrofit.create(MainRefreshApi::class.java)
     }
 }
 

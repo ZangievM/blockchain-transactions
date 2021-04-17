@@ -1,15 +1,14 @@
 package com.zm.data_.repository
 
 import android.content.SharedPreferences
-import androidx.security.crypto.EncryptedSharedPreferences
-import com.zm.data_.api.KartaApi
+import com.zm.data_.api.MainApi
 import com.zm.data_.mappers.toProfile
 import com.zm.domain.model.Profile
 import com.zm.domain.repository.ProfileRepository
 import javax.inject.Inject
 
 class ProfileRepositoryImpl @Inject constructor(
-    private val api: KartaApi,
+    private val api: MainApi,
     private val storage: SharedPreferences
 ) : ProfileRepository {
 
