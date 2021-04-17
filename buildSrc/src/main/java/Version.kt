@@ -16,6 +16,7 @@ object AndroidVersion {
 
 object Version {
 
+    const val ENCRYPTED_SHARED_PREF_VERSION = "1.1.0-alpha03"
     const val JAVA_X_INJECT_VERSION = "1"
     const val JAVA_X_ANNOTATION_VERSION = "1.0"
     const val CORE_KTX_VERSION = "1.3.1"

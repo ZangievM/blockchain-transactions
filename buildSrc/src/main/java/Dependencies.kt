@@ -89,6 +89,9 @@ object Deps {
     const val GLIDE = "com.github.bumptech.glide:glide:${Version.GLIDE_VERSION}"
     const val GLIDE_COMPILER = "com.github.bumptech.glide:compiler:${Version.GLIDE_VERSION}"
 
+
+    const val ENCRYPTED_SHARED_PREF = "androidx.security:security-crypto:${Version.ENCRYPTED_SHARED_PREF_VERSION}"
+
     const val LEAK_CANARY =
         "com.squareup.leakcanary:leakcanary-android:${Version.LEAK_CANARY_VERSION}"
 }

@@ -1,8 +1,6 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -10,7 +8,6 @@ android {
     buildToolsVersion AndroidVersion.BUILD_TOOL_VERSION
 
     defaultConfig {
-        applicationId AndroidVersion.APPLICATION_ID
         minSdkVersion AndroidVersion.MIN_SDK_VERSION
         targetSdkVersion AndroidVersion.TARGET_SDK_VERSION
         versionCode AndroidVersion.VERSION_CODE
@@ -20,19 +17,10 @@ android {
     }
 
     buildTypes {
-        debug {
-            buildConfigField "String", "BASE_URL", "\"https://dev.karta.com/api/\""
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
         release {
-            buildConfigField "String", "BASE_URL", "\"https://dev.karta.com/api/\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-    buildFeatures {
-        viewBinding true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -46,22 +34,14 @@ android {
 dependencies {
 
     implementation Deps.KOTLIN
-    implementation Deps.ANDROIDX_CORE_KTX
-    implementation Deps.APPCOMPAT
-    implementation Deps.MATERIAL
-    implementation Deps.CONSTRAINT_LAYOUT
-
-    implementation Deps.LIFECYCLE_VIEWMODEL_KTX
-    implementation Deps.LIFECYCLE_LIVEDATA_KTX
-
+    implementation Deps.COROUTINES_CORE
+    implementation Deps.JAVA_X_INJECT
+    implementation Deps.JAVA_X_ANNOTATION
     implementation Deps.RETROFIT
-    implementation Deps.RETROFIT_GSON_CONVERTER
-    implementation Deps.OKHTTP_LOGGING_INTERCEPTOR
-    
-    implementation Deps.DAGGER_HILT_ANDROID
-    kapt Deps.DAGGER_HILT_COMPILER
-    implementation Deps.DAGGER_HILT_VIEWMODEL
-    kapt Deps.DAGGER_HILT_ANDROIDX_HILT_COMPILER
+    implementation Deps.GSON
+    implementation Deps.ENCRYPTED_SHARED_PREF
+    implementation project(":domain")
+
 
     testImplementation TestDeps.junit
     androidTestImplementation TestDeps.androidx_test_ext_junit
