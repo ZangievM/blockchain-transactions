@@ -43,7 +43,7 @@ class ProfileRepositoryImpl @Inject constructor(
             .apply()
     }
 
-    private suspend fun getProfileFromStorage(): Profile? {
+    private fun getProfileFromStorage(): Profile? {
         val email = storage.getString("email", null) ?: return null
         val accountId = storage.getString("accountId", "") ?: return null
         val fName = storage.getString("firstName", "")

@@ -22,11 +22,14 @@ android {
     buildTypes {
         debug {
             buildConfigField "String", "BASE_URL", "\"https://dev.karta.com/\""
+            buildConfigField "String", "TRANSACTIONS_URL", "\"wss://ws.blockchain.info/inv\""
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
             buildConfigField "String", "BASE_URL", "\"https://dev.karta.com/\""
+            buildConfigField "String", "TRANSACTIONS_URL", "\"wss://ws.blockchain.info/inv\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
