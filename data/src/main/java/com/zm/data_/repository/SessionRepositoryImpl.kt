@@ -1,11 +1,13 @@
 package com.zm.data_.repository
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import com.zm.domain.model.SessionData
 import com.zm.domain.repository.SessionRepository
 import javax.inject.Inject
 
+@SuppressLint("ApplySharedPref")
 class SessionRepositoryImpl @Inject constructor(
     private val storage: SharedPreferences
 ) : SessionRepository {
@@ -14,7 +16,7 @@ class SessionRepositoryImpl @Inject constructor(
         storage.edit()
             .putString("token", session.token)
             .putLong("expiration", session.expiration)
-            .apply()
+            .commit()
     }
 
     @Synchronized
@@ -29,7 +31,7 @@ class SessionRepositoryImpl @Inject constructor(
         storage.edit()
             .remove("token")
             .remove("expiration")
-            .apply()
+            .commit()
     }
 
     @Synchronized

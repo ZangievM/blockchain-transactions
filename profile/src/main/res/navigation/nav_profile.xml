@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@id/nav_profile"
+    app:startDestination="@id/fragment_profile"
+    >
+
+    <fragment
+        android:id="@+id/fragment_profile"
+        android:name="com.zm.blockchain_transactions.profile.ProfileFragment"
+        android:label="fragment_profile" />
+</navigation>

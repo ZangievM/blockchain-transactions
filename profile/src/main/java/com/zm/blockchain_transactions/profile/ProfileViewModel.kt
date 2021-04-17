@@ -19,15 +19,13 @@ class ProfileViewModel @Inject constructor(
     private val logoutUseCase: LogoutUseCase
 ) : ViewModel() {
 
-    private val profileLiveData = MutableLiveData<Resource<Profile>>().apply {
-        getProfileData()
-    }
+    private val profileLiveData = MutableLiveData<Resource<Profile>>()
     val profile: LiveData<Resource<Profile>> = profileLiveData
 
     private val logoutLiveData = MutableLiveData<Resource<Unit>>()
     val logout: LiveData<Resource<Unit>> = logoutLiveData
 
-    private fun getProfileData() {
+    fun getProfileData() {
         getProfileUseCase.execute()
             .onStart {
                 profileLiveData.postValue(Resource.Loading())

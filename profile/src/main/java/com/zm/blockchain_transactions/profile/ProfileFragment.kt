@@ -82,6 +82,7 @@ class ProfileFragment : Fragment() {
                 }
             }
         }
+        viewModel.getProfileData()
     }
 
     private fun logout() {

@@ -14,9 +14,9 @@ class LogoutUseCase @Inject constructor(
 ) {
     fun execute(): Flow<Unit> {
         return flow {
+            authRepository.logout()
             profileRepository.clearProfileInfo()
             sessionRepository.clearSession()
-            authRepository.logout()
             emit(Unit)
         }
     }
