@@ -13,4 +13,5 @@
     <string name="test_password">12345678</string>
     <string name="menu_transactions">Transactions</string>
     <string name="menu_profile">Profile</string>
+    <string name="title_profile">Profile</string>
 </resources>

@@ -1,0 +1,1 @@
+apply from: "../common_feature_module.gradle"

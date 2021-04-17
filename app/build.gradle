@@ -41,36 +41,37 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    dynamicFeatures = [':profile']
 }
 
 dependencies {
 
     // core
-    implementation Deps.KOTLIN
-    implementation Deps.ANDROIDX_CORE_KTX
-    implementation Deps.APPCOMPAT
-    implementation Deps.MATERIAL
-    implementation Deps.CONSTRAINT_LAYOUT
+    api Deps.KOTLIN
+    api Deps.ANDROIDX_CORE_KTX
+    api Deps.APPCOMPAT
+    api Deps.MATERIAL
+    api Deps.CONSTRAINT_LAYOUT
 
     // ViewModel + lifecycle
-    implementation Deps.LIFECYCLE_VIEWMODEL_KTX
-    implementation Deps.LIFECYCLE_LIVEDATA_KTX
+    api Deps.LIFECYCLE_VIEWMODEL_KTX
+    api Deps.LIFECYCLE_LIVEDATA_KTX
     // network
-    implementation Deps.RETROFIT
-    implementation Deps.RETROFIT_GSON_CONVERTER
-    implementation Deps.OKHTTP_LOGGING_INTERCEPTOR
+    api Deps.RETROFIT
+    api Deps.RETROFIT_GSON_CONVERTER
+    api Deps.OKHTTP_LOGGING_INTERCEPTOR
     // hilt
-    implementation Deps.DAGGER_HILT_ANDROID
+    api Deps.DAGGER_HILT_ANDROID
     kapt Deps.DAGGER_HILT_COMPILER
-    implementation Deps.DAGGER_HILT_VIEWMODEL
+    api Deps.DAGGER_HILT_VIEWMODEL
     kapt Deps.DAGGER_HILT_ANDROIDX_HILT_COMPILER
     // encrypted shared prefs
-    implementation Deps.ENCRYPTED_SHARED_PREF
+    api Deps.ENCRYPTED_SHARED_PREF
 
     // navigation
-    implementation Deps.NAVIGATION_FRAGMENT
-    implementation Deps.NAVIGATION_DYNAMIC
-    implementation Deps.NAVIGATION_UI
+    api Deps.NAVIGATION_FRAGMENT
+    api Deps.NAVIGATION_DYNAMIC
+    api Deps.NAVIGATION_UI
     // domain and data layers
     api project(":domain")
     api project(":data")
