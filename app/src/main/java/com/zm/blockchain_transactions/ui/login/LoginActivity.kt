@@ -1,10 +1,12 @@
 package com.zm.blockchain_transactions.ui.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.zm.blockchain_transactions.MainActivity
 import com.zm.blockchain_transactions.databinding.ActivityLoginBinding
 import com.zm.domain.model.SessionData
 import com.zm.domain.util.Resource
@@ -39,8 +41,15 @@ class LoginActivity : AppCompatActivity() {
                 }
                 is Resource.Success<SessionData> -> {
                     binding.loading.visibility = View.GONE
+                    startMain()
                 }
             }
+        })
+    }
+
+    private fun startMain() {
+        startActivity(Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         })
     }
 
