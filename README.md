@@ -4,7 +4,7 @@
 ## Short description
 Working with api was realized using `Retrofit` + `OkHttp`. For refreshing token was used `MainIntercaptor` (it implements both `Interceptor` and `Authenticator` interfaces). 
 Api was separated to `MainApi` and `MainRefreshApi` to avoid dependencies cycle like: `OkHttp` -> `MainInterceptor` -> `MainApi` -> `OkHttp`. 
-Main screen was realised using dynamic features (install-time). Working with WebSocket was realised using `OkHttp.WebSocket`. Par
+Main screen was realised using dynamic features (install-time). Working with WebSocket was realised using `OkHttp.WebSocket`.
 
 ## What was used:
 
