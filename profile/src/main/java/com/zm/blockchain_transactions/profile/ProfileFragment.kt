@@ -13,6 +13,7 @@ import com.zm.blockchain_transactions.MainActivity
 import com.zm.blockchain_transactions.SplashActivity
 import com.zm.blockchain_transactions.di.CoreDependencies
 import com.zm.blockchain_transactions.profile.di.DaggerProfileComponent
+import com.zm.blockchain_transactions.ui.login.LoginActivity
 import com.zm.domain.model.Profile
 import com.zm.domain.util.Resource
 import com.zm.profile.databinding.ProfileFragmentBinding
@@ -86,7 +87,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun logout() {
-        val intent = Intent(requireContext(), SplashActivity::class.java).apply {
+        val intent = Intent(requireContext(), LoginActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         requireActivity().startActivity(intent)

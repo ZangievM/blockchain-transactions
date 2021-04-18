@@ -83,6 +83,7 @@ class TransactionsFragment : Fragment() {
                 }
                 is TransactionResource.NewData -> {
                     adapter.addTransaction(it.data)
+                    binding.transactionsRV.scrollToPosition(adapter.itemCount - 1 )
                 }
             }
         }
