@@ -21,5 +21,6 @@ Main screen was realised using dynamic features (install-time). Working with Web
 
 ## Tech-debt
 * Tests
+* Avoid fragments recreation when switching
 * Network errors distinguish and handling
 * Rewrite subscribing to `Transaction` events from listeners to coroutines `StateFlows` (it was implemented using `MutableStateFlow`, but for some reason it had crashed without stacktrace. This bug was fixed in `1.4.3` version of coroutines. And it can be rewritten)
