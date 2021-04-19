@@ -29,7 +29,7 @@ class TransactionsViewModel @Inject constructor(
             if (event is TransactionResource.NewData) {
                 total += event.data.x.size
                 transactionsTotalLiveData.postValue(total)
-                println("New event: ${event.data}")
+                println("New event ${this.hashCode()}: ${event.data}")
             }
             viewModelScope.launch(Dispatchers.Main) {
                 transactionsLiveData.value = event
@@ -47,6 +47,11 @@ class TransactionsViewModel @Inject constructor(
     fun clear() {
         total = 0
         transactionsTotalLiveData.value = total
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        transactionsUseCase.unsubscribeFromTransactions(listener)
     }
 
 }
