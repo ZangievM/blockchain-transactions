@@ -37,7 +37,7 @@ class MainInterceptor @Inject constructor(
                 val token = sessionRepository.getSession().token
                 // check if token was refreshed already
                 if (response.request.header("Authorization") != token) {
-                    request.newBuilder().addHeader("Authorization", token).build()
+                    request.newBuilder().removeHeader("Authorization").addHeader("Authorization", token).build()
                 }
                 // if current token is the same we need to refresh it
                 else {
@@ -47,7 +47,7 @@ class MainInterceptor @Inject constructor(
                     }.first()
                     if (newSession.token.isNotBlank()) {
                         sessionRepository.saveSession(newSession)
-                        request.newBuilder().addHeader("Authorization", newSession.token).build()
+                        request.newBuilder().removeHeader("Authorization").addHeader("Authorization", newSession.token).build()
                     } else request
                 }
             }
