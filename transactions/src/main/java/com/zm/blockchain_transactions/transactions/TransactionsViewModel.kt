@@ -10,6 +10,7 @@ import com.zm.domain.repository.TransactionsRepository
 import com.zm.domain.usecase.TransactionsUseCase
 import com.zm.domain.util.TransactionResource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -52,6 +53,7 @@ class TransactionsViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         transactionsUseCase.unsubscribeFromTransactions(listener)
+        viewModelScope.cancel()
     }
 
 }

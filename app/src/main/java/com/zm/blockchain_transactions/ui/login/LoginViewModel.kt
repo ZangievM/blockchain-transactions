@@ -8,6 +8,7 @@ import com.zm.domain.model.SessionData
 import com.zm.domain.usecase.LoginUseCase
 import com.zm.domain.util.Resource
 import com.zm.domain.util.Resource.*
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -30,5 +31,10 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
             .catch { error ->
                 loginState.postValue(Failure(error))
             }.launchIn(viewModelScope)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelScope.cancel()
     }
 }

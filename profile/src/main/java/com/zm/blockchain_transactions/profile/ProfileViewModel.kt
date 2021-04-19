@@ -8,6 +8,7 @@ import com.zm.domain.model.Profile
 import com.zm.domain.usecase.GetProfileUseCase
 import com.zm.domain.usecase.LogoutUseCase
 import com.zm.domain.util.Resource
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -49,5 +50,10 @@ class ProfileViewModel @Inject constructor(
             .catch { error ->
                 profileLiveData.postValue(Resource.Failure(error))
             }.launchIn(viewModelScope)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelScope.cancel()
     }
 }

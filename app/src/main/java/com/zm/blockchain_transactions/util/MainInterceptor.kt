@@ -3,7 +3,12 @@ package com.zm.blockchain_transactions.util
 import android.content.SharedPreferences
 import com.zm.data_.api.MainRefreshApi
 import com.zm.data_.mappers.toSessionData
+import com.zm.domain.model.SessionData
 import com.zm.domain.repository.SessionRepository
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import okhttp3.*
 import javax.inject.Inject
@@ -36,9 +41,14 @@ class MainInterceptor @Inject constructor(
                 }
                 // if current token is the same we need to refresh it
                 else {
-                    val newSession = refreshApi.refresh().toSessionData()
-                    sessionRepository.saveSession(newSession)
-                    request.newBuilder().addHeader("Authorization", newSession.token).build()
+                    val newSession:SessionData =
+                    flow { emit(refreshApi.refresh().toSessionData()) }.catch {
+                        emit(SessionData(0L,""))
+                    }.first()
+                    if (newSession.token.isNotBlank()) {
+                        sessionRepository.saveSession(newSession)
+                        request.newBuilder().addHeader("Authorization", newSession.token).build()
+                    } else request
                 }
             }
         }
