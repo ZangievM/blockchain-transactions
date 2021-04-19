@@ -91,7 +91,7 @@ object AppModule {
     fun provideMainInterceptor(
         refreshApi: MainRefreshApi,
         sessionRepository: SessionRepository
-    ): Interceptor {
+    ): MainInterceptor {
 
         return MainInterceptor(sessionRepository, refreshApi)
     }
@@ -99,11 +99,12 @@ object AppModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(
-        mainInterceptor: Interceptor,
+        mainInterceptor: MainInterceptor,
         loggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder().apply {
             addInterceptor(mainInterceptor)
+            authenticator(mainInterceptor)
             if (BuildConfig.DEBUG) addInterceptor(loggingInterceptor)
         }.build()
     }
