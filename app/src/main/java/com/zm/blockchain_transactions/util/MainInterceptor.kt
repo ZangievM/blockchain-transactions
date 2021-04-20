@@ -1,12 +1,11 @@
 package com.zm.blockchain_transactions.util
 
-import android.content.SharedPreferences
 import com.zm.data_.api.MainRefreshApi
 import com.zm.data_.mappers.toSessionData
 import com.zm.domain.model.SessionData
 import com.zm.domain.repository.SessionRepository
+import com.zm.domain.util.LogoutException
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
@@ -16,7 +15,7 @@ import javax.inject.Inject
 class MainInterceptor @Inject constructor(
     private val sessionRepository: SessionRepository,
     private val refreshApi: MainRefreshApi
-): Interceptor, Authenticator {
+) : Interceptor, Authenticator {
     private val monitor = Any()
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
@@ -37,18 +36,18 @@ class MainInterceptor @Inject constructor(
                 val token = sessionRepository.getSession().token
                 // check if token was refreshed already
                 if (response.request.header("Authorization") != token) {
-                    request.newBuilder().removeHeader("Authorization").addHeader("Authorization", token).build()
+                    request.newBuilder().removeHeader("Authorization")
+                        .addHeader("Authorization", token).build()
                 }
                 // if current token is the same we need to refresh it
                 else {
-                    val newSession:SessionData =
-                    flow { emit(refreshApi.refresh().toSessionData()) }.catch {
-                        emit(SessionData(0L,""))
-                    }.first()
-                    if (newSession.token.isNotBlank()) {
-                        sessionRepository.saveSession(newSession)
-                        request.newBuilder().removeHeader("Authorization").addHeader("Authorization", newSession.token).build()
-                    } else request
+                    val newSession: SessionData =
+                        flow { emit(refreshApi.refresh().toSessionData()) }.catch {
+                            throw LogoutException("Unable to refresh loken")
+                        }.first()
+                    sessionRepository.saveSession(newSession)
+                    request.newBuilder().removeHeader("Authorization")
+                        .addHeader("Authorization", newSession.token).build()
                 }
             }
         }

@@ -9,11 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.zm.blockchain_transactions.MainActivity
-import com.zm.blockchain_transactions.SplashActivity
 import com.zm.blockchain_transactions.di.CoreDependencies
 import com.zm.blockchain_transactions.profile.di.DaggerProfileComponent
 import com.zm.blockchain_transactions.ui.login.LoginActivity
+import com.zm.domain.util.LogoutException
 import com.zm.domain.model.Profile
 import com.zm.domain.util.Resource
 import com.zm.profile.databinding.ProfileFragmentBinding
@@ -56,6 +55,7 @@ class ProfileFragment : Fragment() {
             when(it) {
                 is Resource.Failure -> {
                     binding.progress.visibility = View.GONE
+                    if (it.error is LogoutException) logout()
                     showError(it.error)
                 }
                 is Resource.Loading -> {
